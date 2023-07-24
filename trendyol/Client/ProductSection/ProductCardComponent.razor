@@ -1,0 +1,22 @@
+﻿@using trendyol.Shared.Models;
+
+<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+    <img class="card-img-top" src=@($"https://cdn.dsmcdn.com{Item.images[0]}") alt="@Item.imageAlt">
+    <div class="card-header">@Item.brand.name</div>
+    <div class="card-body">
+        <h5 class="card-title">@Item.name</h5>
+        <ul class="card-text">
+            <li>قیمت فروش: @((Item.price.sellingPrice * Rate).ToString("N0")) تومن</li>
+            <li>قیمت اصلی: @((Item.price.originalPrice * Rate).ToString("N0")) تومن</li>
+            <li>قیمت بعد تخفیف: @((Item.price.discountedPrice * Rate).ToString("N0")) تومن</li>
+        </ul>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-danger" href=@($"https://www.trendyol.com{Item.url}")>مشاهده در سایت اصلی</a>
+    </div>
+</div>
+
+@code {
+    [Parameter] public Product Item { get; set; }
+    [Parameter] public int Rate { get; set; }
+}

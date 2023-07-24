@@ -1,0 +1,19 @@
+﻿@using trendyol.Shared.Models;
+
+<div class="input-group mb-3">
+    <input type="text" class="form-control rounded-0 rounded-end" @bind-value="query" placeholder="قیمت لیر">
+    <div class="input-group-prepend">
+        <button class="btn btn-primary rounded-0 rounded-start" type="button" @onclick="Search">تنظیم</button>
+    </div>
+</div>
+
+
+@code {
+    private int query = 1700;
+    [Parameter]
+    public EventCallback<int> RateChanghed { get; set; }
+    private async Task Search()
+    {
+        await RateChanghed.InvokeAsync(query);
+    }
+}

@@ -1,0 +1,44 @@
+﻿@page "/"
+@using trendyol.Client.ProductSection
+@using trendyol.Client.SearchSection
+@using trendyol.Shared.Models;
+
+<PageTitle>Index</PageTitle>
+<div class="row">
+    <div class="col-sm-12 col-md-2">
+        <CurrencyRateComponent RateChanghed="OnRateChanghed" />
+    </div>
+    <div class="col-sm-12 col-md-10">
+        <SearchComponent ResultFetched="OnFetchResult" />
+    </div>
+    <div class="col-12">
+        @if(result != null)
+        {
+        <ShowCategoriesComponent Collection="result.Result" OneSuggestionAccept="OnSuggestionAccept" />
+        }
+    </div>
+    <div class="col-12 row">
+    @if(AcceptedSuggestion != null)
+    {
+        <ShowProductListComponent Suggestion="AcceptedSuggestion" Rate="rate"/>
+    }
+    </div>
+</div>
+@code{
+    private int rate = 1700;
+    private GenericResponseModel<ICollection<SuggestionModel>> result;
+    private SuggestionModel AcceptedSuggestion;
+    private void OnFetchResult(GenericResponseModel<ICollection<SuggestionModel>> _result)
+    {
+        result = _result;   
+    }
+    private void OnRateChanghed(int _result)
+    {
+        rate = _result;
+    }
+    private void OnSuggestionAccept(SuggestionModel suggest)
+    {
+        AcceptedSuggestion = suggest;
+    }
+}
+

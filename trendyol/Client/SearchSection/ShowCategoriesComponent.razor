@@ -1,0 +1,13 @@
+﻿@using trendyol.Shared.Models;
+<h5>دسته‌بندیهای مرتبط با عبارت مورد جستجو:</h5>
+@foreach (var item in Collection)
+{
+    <button class="btn btn-primary ms-3 mb-3" @onclick="@(async() => await OneSuggestionAccept.InvokeAsync(item))">@item.persiantext</button>
+}
+
+@code {
+    [Parameter]
+    public ICollection<SuggestionModel> Collection { set; get; }
+    [Parameter]
+    public EventCallback<SuggestionModel> OneSuggestionAccept { get; set; }
+}

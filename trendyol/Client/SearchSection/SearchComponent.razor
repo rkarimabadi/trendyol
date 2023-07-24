@@ -1,0 +1,20 @@
+﻿@using trendyol.Shared.Models;
+@inject ISearchSuggestionsService SearchSuggestionsService
+
+<div class="input-group mb-3">
+    <input type="text" class="form-control rounded-0 rounded-end" @bind-value="query" placeholder="عبارت جستجو">
+    <div class="input-group-prepend">
+        <button class="btn btn-primary rounded-0 rounded-start" type="button" @onclick="Search">جستجو</button>
+    </div>
+</div>
+
+
+@code {
+    private string query = "دوچرخه";
+    [Parameter]
+    public EventCallback<GenericResponseModel<ICollection<SuggestionModel>>> ResultFetched { get; set; }
+    private async Task Search()
+    {
+        await ResultFetched.InvokeAsync(await SearchSuggestionsService.Suggestions(query));
+    }
+}

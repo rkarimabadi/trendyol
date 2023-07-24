@@ -1,0 +1,24 @@
+﻿@using trendyol.Shared.Models;
+@inject IProductService ProductService
+
+@if (productList != null)
+{
+    
+    @foreach(var item in productList.Result.Products)
+    {
+        <div class="col-sm-6 col-md-4 col-lg-3 mt-4"><ProductCardComponent Item="@item" Rate="Rate" /></div>
+    }
+    
+}
+
+
+@code {
+    [Parameter] public SuggestionModel Suggestion { set; get; }
+    [Parameter] public int Rate { get; set; }
+    private GenericResponseModel<ProductModel> productList;
+    protected override async Task OnParametersSetAsync()
+    {
+        productList = await ProductService.Products(Suggestion.text, 10);
+    }
+        
+}
